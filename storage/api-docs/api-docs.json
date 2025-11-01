@@ -1,0 +1,193 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "LeedBook API",
+        "description": "API для взаимодействия с LeedBook",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/events/{eventId}/": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "description": "Получение детальной информации о событии (список мест)",
+                "operationId": "62b73099136770a2ff32f0773085c0f6",
+                "parameters": [
+                    {
+                        "name": "eventId",
+                        "in": "path",
+                        "description": "Идентификатор события",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список событий",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/EventRecourse"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/shows": {
+            "get": {
+                "tags": [
+                    "Shows"
+                ],
+                "description": "Получение списка мероприятий",
+                "operationId": "71aa465375ef08cb18fe0f645b9028c3",
+                "responses": {
+                    "200": {
+                        "description": "Список мероприятий",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ShowRecourse"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/shows/{showId}/": {
+            "get": {
+                "tags": [
+                    "Shows"
+                ],
+                "description": "Получение детальной информации о мероприятии (список дат и ID событий)",
+                "operationId": "c7353cb6acd5c30122207934fceebbab",
+                "parameters": [
+                    {
+                        "name": "showId",
+                        "in": "path",
+                        "description": "Идентификатор мероприятия",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Детальная информация о мероприятии",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ShowDetailRecourse"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "EventRecourse": {
+                "properties": {
+                    "placeId": {
+                        "description": "Идентификатор места",
+                        "type": "integer"
+                    },
+                    "x": {
+                        "description": "Горизонтальная координата ряда",
+                        "type": "integer"
+                    },
+                    "y": {
+                        "description": "Вертикальная координата ряда",
+                        "type": "integer"
+                    },
+                    "width": {
+                        "description": "Ширина места",
+                        "type": "integer"
+                    },
+                    "height": {
+                        "description": "Длина места",
+                        "type": "integer"
+                    },
+                    "is_available": {
+                        "description": "Место свободно для бронирования",
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "ShowDetailRecourse": {
+                "properties": {
+                    "eventId": {
+                        "description": "Идентификатор события",
+                        "type": "integer"
+                    },
+                    "showId": {
+                        "description": "Идентификатор мероприятия",
+                        "type": "integer"
+                    },
+                    "date": {
+                        "description": "Дата события",
+                        "type": "string",
+                        "format": "date"
+                    }
+                },
+                "type": "object"
+            },
+            "ShowRecourse": {
+                "properties": {
+                    "showId": {
+                        "description": "Идентификатор мероприятия",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "Название мероприятия",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Events",
+            "description": "Events"
+        },
+        {
+            "name": "Shows",
+            "description": "Shows"
+        }
+    ]
+}
